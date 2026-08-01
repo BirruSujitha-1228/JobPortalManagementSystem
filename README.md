@@ -1,7 +1,7 @@
 # Console Based Job Portal using Core Java
 
 ## Project Description
-A beginner-friendly console-based Job Portal application developed using Core Java.
+A console-based Job Portal application developed using Core Java by following Object-Oriented Programming (OOP) principles.
 
 ## Features
 - User Registration
@@ -11,7 +11,14 @@ A beginner-friendly console-based Job Portal application developed using Core Ja
 - Change Password
 - Logout
 
-## Concepts Used
+## OOP Concepts Used
+- Class
+- Object
+- Constructor
+- Encapsulation
+- Getter and Setter Methods
+
+## Core Java Concepts Used
 - Variables
 - Data Types
 - Scanner Class
@@ -19,20 +26,45 @@ A beginner-friendly console-based Job Portal application developed using Core Ja
 - Nested if
 - switch
 - while loop
-- break
+- Methods
 - String methods
 
-## Technologies
-- Java
+## Project Structure
+```
+src
+└── com.jobportal
+    ├── JobPortal.java
+    ├── JobService.java
+    └── User.java
+```
+
+## Technologies Used
+- Core Java
 - Eclipse IDE
 - Git
 - GitHub
 
+## Version History
+
+### Version 1
+- Developed a console-based Job Portal application.
+
+### Version 2
+- Refactored the project using separate methods.
+- Improved code readability and modularity.
+
+### Version 3
+- Refactored the project using Object-Oriented Programming.
+- Added `User` class.
+- Added `JobService` class.
+- Implemented Encapsulation using private variables, getters, and setters.
+
 ## Future Improvements
-- Methods
-- OOP
-- Collections
+- Multiple User Registration using ArrayList
 - Exception Handling
 - File Handling
 - JDBC + MySQL
 - Spring Boot
+- AI-powered Resume Analyzer
+- AI Job Recommendation System
+- AI Chatbot
