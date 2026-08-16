@@ -58,9 +58,17 @@ src
 - Added `User` class.
 - Added `JobService` class.
 - Implemented Encapsulation using private variables, getters, and setters.
+### Version 4
+
+- Added multiple user support using `ArrayList<User>`.
+- Added `currentUser` to track the currently logged-in user.
+- Added duplicate email validation during registration.
+- Updated login, profile, job application, and password change features to work with the currently logged-in user.
 
 ## Future Improvements
-- Multiple User Registration using ArrayList
+
+- Input Validation for email and mobile number
+- Job Management using `Job` class and `ArrayList<Job>`
 - Exception Handling
 - File Handling
 - JDBC + MySQL
