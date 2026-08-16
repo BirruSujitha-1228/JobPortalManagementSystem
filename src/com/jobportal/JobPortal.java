@@ -3,11 +3,11 @@ package com.jobportal;
 import java.util.Scanner;
 
 public class JobPortal {
-	private static Scanner sc = new Scanner(System.in);
+	 static Scanner sc = new Scanner(System.in);
 
 	public static void main(String[] args) {
 
-		JobService service = new JobService();
+		JobService service = new JobService(sc);
 		boolean running = true;
 
 		System.out.println("=================================");

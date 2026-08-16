@@ -1,18 +1,23 @@
 package com.jobportal;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class JobService {
-	private Scanner sc = new Scanner(System.in);
+	private Scanner sc;
 
-	private User user;
+	private ArrayList<User> users = new ArrayList<>();
+	User currentUser;
+	public JobService(Scanner sc) {
+		this.sc=sc;
+	}
 
-	private boolean isRegistered = false;
+	
 
 	public void register() {
 
 		System.out.println("\n===== REGISTER MODULE =====");
-		
+		sc.nextLine();
 
 		System.out.print("Enter Your Name : ");
 		String name = sc.nextLine();
@@ -35,22 +40,29 @@ public class JobService {
 
 		System.out.print("Enter Mobile Number : ");
 		long mobileNumber = sc.nextLong();
+		
+		for (User u : users) {
 
-		user = new User(name, email, password, age, qualification, percentage, mobileNumber);
+		    if (u.getEmail().equals(email)) {
+		        System.out.println("Email already registered. Please use another email.");
+		        return;
+		    }
+		}
 
-		isRegistered = true;
+		User newUser = new User(name, email, password, age, qualification, percentage, mobileNumber);
+		users.add(newUser);
 
 		System.out.println("\nRegistration Successful");
-		System.out.println("Name : " + user.getName());
-		System.out.println("Email : " + user.getEmail());
+		System.out.println("Name : " + newUser.getName());
+		System.out.println("Email : " + newUser.getEmail());
 	}
 
 	public void login() {
 
 		System.out.println("\n===== LOGIN MODULE =====");
 
-		if (!isRegistered) {
-			System.out.println("Please Register First");
+		if (users.isEmpty()) {
+			System.out.println("No users Registerd. Please Register First");
 			return;
 		}
 
@@ -60,23 +72,31 @@ public class JobService {
 		System.out.print("Enter Password : ");
 		String enteredPassword = sc.next();
 
-		if (user.getEmail().equals(enteredEmail)) {
+		boolean loginSuccess = false;
+		for (User u : users) {
 
-			if (user.getPassword().equals(enteredPassword)) {
+			if (u.getEmail().equals(enteredEmail)) {
 
-				System.out.println("\nLogin Successful");
-				userMenu();
+				if (u.getPassword().equals(enteredPassword)) {
+					currentUser = u;
+					loginSuccess = true;
+					System.out.println("\nLogin Successful");
+					userMenu();
+					break;
 
-			} else {
+				} else {
 
-				System.out.println("Invalid Password");
+					System.out.println("Invalid Password");
+					loginSuccess = true;
+					break;
+				}
+
 			}
 
-		} else {
-
+		}
+		if (!loginSuccess) {
 			System.out.println("No Account Found with this Email. Please Register First.");
 		}
-
 	}
 
 	public void userMenu() {
@@ -123,12 +143,12 @@ public class JobService {
 
 	public void viewProfile() {
 		System.out.println("\n===== PROFILE =====");
-		System.out.println("Name : " + user.getName());
-		System.out.println("Email : " + user.getEmail());
-		System.out.println("Age : " + user.getAge());
-		System.out.println("Qualification : " + user.getQualification());
-		System.out.println("Percentage : " + user.getPercentage());
-		System.out.println("Mobile Number : " + user.getMobileNumber());
+		System.out.println("Name : " + currentUser.getName());
+		System.out.println("Email : " + currentUser.getEmail());
+		System.out.println("Age : " + currentUser.getAge());
+		System.out.println("Qualification : " + currentUser.getQualification());
+		System.out.println("Percentage : " + currentUser.getPercentage());
+		System.out.println("Mobile Number : " + currentUser.getMobileNumber());
 		// userMenu();
 
 	}
@@ -165,12 +185,12 @@ public class JobService {
 			break;
 		}
 		if (!job.equals("")) {
-			if (user.getAge() >= 18 && user.getPercentage() >= 60) {
+			if (currentUser.getAge() >= 18 && currentUser.getPercentage() >= 60) {
 				System.out.println("Application Submitted Successfully");
 				System.out.println("Applied Role : " + job);
 			} else {
-				System.out.println("Age : " + user.getAge());
-				System.out.println("Percentage : " + user.getPercentage());
+				System.out.println("Age : " + currentUser.getAge());
+				System.out.println("Percentage : " + currentUser.getPercentage());
 				System.out.println("You are not Eligible");
 			}
 		}
@@ -182,13 +202,13 @@ public class JobService {
 		System.out.println("Enter your Old Password");
 		String oldPassword = sc.next();
 
-		if (user.getPassword().equals(oldPassword)) {
+		if (currentUser.getPassword().equals(oldPassword)) {
 			System.out.println("Enter new Password");
 			String newPassword = sc.next();
-			user.setPassword(newPassword);
+			currentUser.setPassword(newPassword);
 			System.out.println("Password Changed Successfully");
 		} else {
-			System.out.println("Incorrect Old Password ");
+			System.out.println("Incorrect Old Password");
 		}
 
 	}
