@@ -7,7 +7,9 @@ A console-based Job Portal application developed using Core Java by following Ob
 - User Registration
 - User Login
 - View Profile
+- View Jobs
 - Apply for Job
+- My Applications
 - Change Password
 - Logout
 
@@ -65,10 +67,18 @@ src
 - Added duplicate email validation during registration.
 - Updated login, profile, job application, and password change features to work with the currently logged-in user.
 
+  ### Version 5
+- Added `Job` class to represent job details.
+- Added `ArrayList<Job>` to manage available jobs.
+- Added View Jobs feature.
+- Added Job ID based job selection.
+- Added job application management.
+- Added `ArrayList<Job>` in `User` to store applied jobs for each user.
+- Added My Applications feature to view the jobs applied by the logged-in user.
+
 ## Future Improvements
 
 - Input Validation for email and mobile number
-- Job Management using `Job` class and `ArrayList<Job>`
 - Exception Handling
 - File Handling
 - JDBC + MySQL
