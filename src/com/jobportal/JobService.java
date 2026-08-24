@@ -7,9 +7,51 @@ public class JobService {
 	private Scanner sc;
 
 	private ArrayList<User> users = new ArrayList<>();
+	private ArrayList<Job> jobs = new ArrayList<>();
 	User currentUser;
 	public JobService(Scanner sc) {
 		this.sc=sc;
+		addJobs();
+	}
+	
+	private void addJobs() {
+
+	    jobs.add(new Job(101, "Java Developer", "TCS"));
+	    jobs.add(new Job(102, "QA Tester", "Infosys"));
+	    jobs.add(new Job(103, "Full Stack Developer", "Wipro"));
+	    jobs.add(new Job(104, "Data Analyst", "Accenture"));
+	    jobs.add(new Job(105, "Python Developer", "Cognizant"));
+
+	}
+	public void viewJobs() {
+
+	    System.out.println("\n===== AVAILABLE JOBS =====");
+
+	    for (Job job : jobs) {
+	        System.out.println("Job ID : " + job.getJobId());
+	        System.out.println("Job Title : " + job.getJobTitle());
+	        System.out.println("Company : " + job.getCompany());
+	        System.out.println("-------------------------");
+	    }
+	}
+	
+	public void viewMyApplications() {
+
+	    System.out.println("\n===== MY APPLICATIONS =====");
+
+	    if (currentUser.getAppliedJobs().isEmpty()) {
+	        System.out.println("No applications found.");
+	        return;
+	    }
+
+	    for (Job job : currentUser.getAppliedJobs()) {
+
+	        System.out.println("Job ID : " + job.getJobId());
+	        System.out.println("Job Title : " + job.getJobTitle());
+	        System.out.println("Company : " + job.getCompany());
+	        System.out.println("Status : Applied");
+	        System.out.println("-------------------------");
+	    }
 	}
 
 	
@@ -104,9 +146,11 @@ public class JobService {
 		while (isOption) {
 			System.out.println("\n===== USER MENU =====");
 			System.out.println("1. View Profile");
-			System.out.println("2. Apply for Job");
-			System.out.println("3. Change Password");
-			System.out.println("4. Logout");
+			System.out.println("2. View Jobs");
+			System.out.println("3. Apply for Job");
+			System.out.println("4. My Applications");
+			System.out.println("5. Change Password");
+			System.out.println("6. Logout");
 
 			System.out.print("Enter Option : ");
 			int option = sc.nextInt();
@@ -116,18 +160,27 @@ public class JobService {
 
 				viewProfile();
 				break;
-
+			
 			case 2:
 
-				applyJob();
+				viewJobs();
 				break;
 
 			case 3:
 
+				applyJob();
+				break;
+				
+			case 4:
+			    viewMyApplications();
+			    break;
+
+			case 5:
+
 				changePassword();
 				break;
 
-			case 4:
+			case 6:
 
 				System.out.println("You have been Logged out Successfully");
 				isOption = false;
@@ -154,47 +207,47 @@ public class JobService {
 	}
 
 	public void applyJob() {
-		System.out.println("\n===== Apply Job Module =====");
-		System.out.println("----Job Roles----");
-		System.out.println("1. Java Developer");
-		System.out.println("2. QA Tester");
-		System.out.println("3. Full Stack Developer");
-		System.out.println("4. Data Analyst");
-		System.out.println("5. Python Developer");
-		System.out.println("Select Job Role");
-		int jobChoice = sc.nextInt();
-		String job = "";
-		switch (jobChoice) {
-		case 1:
-			job = "Java Developer";
-			break;
-		case 2:
-			job = "QA Tester";
-			break;
-		case 3:
-			job = "Full Stack Developer";
-			break;
-		case 4:
-			job = "Data Analyst";
-			break;
-		case 5:
-			job = "Python Developer";
-			break;
-		default:
-			System.out.println("Invalid Job Selection");
-			break;
-		}
-		if (!job.equals("")) {
-			if (currentUser.getAge() >= 18 && currentUser.getPercentage() >= 60) {
-				System.out.println("Application Submitted Successfully");
-				System.out.println("Applied Role : " + job);
-			} else {
-				System.out.println("Age : " + currentUser.getAge());
-				System.out.println("Percentage : " + currentUser.getPercentage());
-				System.out.println("You are not Eligible");
-			}
-		}
-		// userMenu();
+
+	    System.out.println("\n===== APPLY FOR JOB =====");
+
+	    for (Job job : jobs) {
+	        System.out.println(job.getJobId() + " - "
+	                + job.getJobTitle() + " - "
+	                + job.getCompany());
+	    }
+
+	    System.out.print("Enter Job ID : ");
+	    int jobId = sc.nextInt();
+
+	    Job selectedJob = null;
+
+	    for (Job job : jobs) {
+
+	        if (job.getJobId() == jobId) {
+	            selectedJob = job;
+	            break;
+	        }
+	    }
+
+	    if (selectedJob == null) {
+	        System.out.println("Invalid Job ID");
+	        return;
+	    }
+
+	    if (currentUser.getAge() >= 18 && currentUser.getPercentage() >= 60) {
+	        currentUser.applyForJob(selectedJob);
+	        System.out.println("Application Submitted Successfully");
+	        System.out.println("Applied Role : " + selectedJob.getJobTitle());
+	        System.out.println("Company : " + selectedJob.getCompany());
+
+	    } else {
+
+	        System.out.println("Age : " + currentUser.getAge());
+	        System.out.println("Percentage : " + currentUser.getPercentage());
+	        System.out.println("You are not Eligible");
+	    }
+
+		
 
 	}
 
@@ -212,5 +265,6 @@ public class JobService {
 		}
 
 	}
+	
 
 }

@@ -1,5 +1,7 @@
 package com.jobportal;
 
+import java.util.ArrayList;
+
 public class User {
 	private String name;
 	private String email;
@@ -8,7 +10,14 @@ public class User {
 	private String qualification;
 	private double percentage;
 	private long mobileNumber;
-
+   
+	private ArrayList<Job> appliedJobs = new ArrayList<>();
+	public ArrayList<Job> getAppliedJobs() {
+	    return appliedJobs;
+	}
+	public void applyForJob(Job job) {
+	    appliedJobs.add(job);
+	}
 	public User(String name, String email, String password, int age, String qualification, double percentage,
 			long mobileNumber) {
 

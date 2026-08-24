@@ -3,7 +3,7 @@ package com.jobportal;
 import java.util.Scanner;
 
 public class JobPortal {
-	 static Scanner sc = new Scanner(System.in);
+	static Scanner sc = new Scanner(System.in);
 
 	public static void main(String[] args) {
 
@@ -28,7 +28,6 @@ public class JobPortal {
 			case 1:
 
 				service.register();
-
 				break;
 
 			case 2:
